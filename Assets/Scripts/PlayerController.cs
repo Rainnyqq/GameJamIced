@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float f1 = 10.0f;
     [SerializeField] private float nu = 0.001f;
     [SerializeField] private Vector2 direction = Vector2.zero;
+    [SerializeField] public float health = 3f;
     private Rigidbody2D rb2D;
 
     private void Start()
@@ -34,5 +35,14 @@ public class PlayerController : MonoBehaviour
 
         //Vector3 v3d = new Vector3(v.x, v.y, 0);
         //transform.position += v3d;
+    }
+
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            health -= 1;
+        }
     }
 }
