@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CheckPointController : MonoBehaviour
 {
@@ -32,8 +33,14 @@ public class CheckPointController : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             level += 1;
+
+            if (level == 3)
+            {
+                SceneManager.LoadScene(0);
+            }
         }
     }
+    
 
    
 }
