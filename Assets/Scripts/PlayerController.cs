@@ -1,6 +1,6 @@
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-
+using TMPro;
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement Settings")]
@@ -9,7 +9,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float nu = 0.001f;
     [SerializeField] private Vector2 direction = Vector2.zero;
     [SerializeField] public float health = 3f;
+    [SerializeField] public int score = 0;
     private Rigidbody2D rb2D;
+    public TextMeshProUGUI scoreText;
 
     private void Start()
     {
@@ -22,6 +24,14 @@ public class PlayerController : MonoBehaviour
         float vertical = Input.GetAxisRaw("Vertical");
 
         direction = new Vector2(horizontal, vertical).normalized;
+
+        //Quaternion rot = Quaternion.LookRotation(Vector2.up, direction);
+        //transform.rotation = new Quaternion(0, 0, rot.z, 0);
+        //transform.rotation = rot;
+
+        //float angle = -Mathf.Atan2(direction.x, direction.y) * Mathf.Rad2Deg;
+        //Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
+        //transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * 5);
 
         Vector2 f1_vec = direction * f1;
         Vector2 f2_vec = -rb2D.velocity.normalized * rb2D.mass * nu;
@@ -42,7 +52,9 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            health -= 1;
+            //health -= 1;
+            score += 1;
+            scoreText.text = "SCORE " + score.ToString();
         }
     }
 }

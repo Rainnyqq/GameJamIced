@@ -15,6 +15,7 @@ public class EnemyController : MonoBehaviour
 
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         rb2D = GetComponent<Rigidbody2D>();
     }
 
@@ -28,5 +29,13 @@ public class EnemyController : MonoBehaviour
         rb2D.AddForce(direction * force, ForceMode2D.Force);
         //float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         //transform.rotation = Quaternion.Euler(Vector3.forward * angle);
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            Destroy(gameObject);
+        }
     }
 }
