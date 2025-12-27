@@ -13,19 +13,56 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public int score = 0;
     private Rigidbody2D rb2D;
     public TextMeshProUGUI scoreText;
-
+    public Sprite normanSnowman;
+    public Sprite rightSnowman;
+    public Sprite leftSnowman;
+    public Sprite backwardSnowman;
+    public float angle;
 
     private void Start()
     {
         rb2D = GetComponent<Rigidbody2D>();
+        SpriteRenderer sr = GetComponent<SpriteRenderer>();
+        sr.sprite = normanSnowman;
+        //Sprite newSprite = ...;
+        //sr.sprite = newSprite;
     }
 
     private void Update()
     {
+
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
-
         direction = new Vector2(horizontal, vertical).normalized;
+        if (horizontal != 0 || vertical != 0)
+        {
+            SpriteRenderer sr = GetComponent<SpriteRenderer>();
+
+            angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            if (angle >= 135 || angle <= -135)
+            {
+                sr.sprite = leftSnowman;
+            }
+
+            if (angle >= -45 && angle <= 45)
+            {
+                sr.sprite = rightSnowman;
+            }
+
+            if (angle == 90)
+            {
+                sr.sprite = backwardSnowman;
+            }
+
+            if (angle == -90)
+            {
+                sr.sprite = normanSnowman;
+            }
+        }
+
+
+
+        //if (direction.x == 0 & )
 
         //Quaternion rot = Quaternion.LookRotation(Vector2.up, direction);
         //transform.rotation = new Quaternion(0, 0, rot.z, 0);
