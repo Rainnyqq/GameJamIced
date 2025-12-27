@@ -10,6 +10,8 @@ public class EnemyController : MonoBehaviour
     public float speed;
     public Vector2 direction;
     public float force;
+    SpriteRenderer zombie;
+
 
     //private float distance;
 
@@ -17,6 +19,7 @@ public class EnemyController : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         rb2D = GetComponent<Rigidbody2D>();
+        zombie = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -40,7 +43,11 @@ public class EnemyController : MonoBehaviour
 
         if (collision.gameObject.tag == "Bullet")
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            // Change the 'color' property of the 'Sprite Renderer'
+            zombie.color = new Color(0, 85, 255, 255);
+            rb2D.constraints = RigidbodyConstraints2D.FreezePosition;
+            rb2D.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
 
     }
