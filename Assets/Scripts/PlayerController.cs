@@ -1,6 +1,7 @@
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement Settings")]
@@ -12,6 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] public int score = 0;
     private Rigidbody2D rb2D;
     public TextMeshProUGUI scoreText;
+
 
     private void Start()
     {
@@ -52,6 +54,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy")
         {
+            
             //health -= 1;
             score += 1;
             scoreText.text = "SCORE " + score.ToString();

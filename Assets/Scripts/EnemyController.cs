@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EnemyController : MonoBehaviour
 
@@ -11,6 +12,7 @@ public class EnemyController : MonoBehaviour
     public Vector2 direction;
     public float force;
     SpriteRenderer zombie;
+    public float iced = 0f;
 
 
     //private float distance;
@@ -36,18 +38,26 @@ public class EnemyController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
-        {
-            Destroy(gameObject);
-        }
 
         if (collision.gameObject.tag == "Bullet")
         {
+            iced = 1;
             //Destroy(gameObject);
             // Change the 'color' property of the 'Sprite Renderer'
-            zombie.color = new Color(0, 85, 255, 255);
+            zombie.color = new Color(0, 150, 255, 255);
             rb2D.constraints = RigidbodyConstraints2D.FreezePosition;
-            rb2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+            
+        }
+
+        if (collision.gameObject.tag == "Player" & iced == 0)
+        {
+            Destroy(gameObject);
+            SceneManager.LoadScene(0);
+        }
+
+        if (collision.gameObject.tag == "Player" & iced == 1)
+        {
+            Destroy(gameObject);
         }
 
     }
